@@ -3,17 +3,21 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 
 const PopupForm = (props) => {
+    const { getData, handleClose } = props;
     // form state
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
+
     const onSubmit = data => {
         console.log(data);
-        axios.post('http://localhost:5000/formtotable', data)
+        axios.post('https://safe-journey-03403.herokuapp.com/formtotable', data)
             .then(res => {
                 if (res.data.insertedId) {
                     alert('Data inserted successfully');
+                    getData();
                 }
             })
-        props.data();
+        // props.data();
+        handleClose();
     };
 
     console.log(watch("example"));

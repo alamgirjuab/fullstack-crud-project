@@ -1,6 +1,6 @@
 # Full Stack (MERN stack) CRUD Project
 
-Live Link (https://github.com/facebook/create-react-app).
+Live Link (https://fullstack-crud-app.netlify.app/).
 
 ## Used Technologies
     1. React.js

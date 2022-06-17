@@ -3,7 +3,8 @@ import { Button, Modal } from 'react-bootstrap';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import PopupForm from './PopupForm';
 
-const PopupModal = () => {
+const PopupModal = (props) => {
+    const { getData } = props;
     // modal state
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -20,7 +21,7 @@ const PopupModal = () => {
                         {/* <Modal.Title>Modal heading</Modal.Title> */}
                     </Modal.Header>
                     <Modal.Body>
-                        <PopupForm data={handleClose} />
+                        <PopupForm handleClose={handleClose} getData={getData} />
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>

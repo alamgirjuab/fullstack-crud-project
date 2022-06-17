@@ -1,11 +1,22 @@
-import { React } from 'react';
+import { React, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import DataDisplayTable from './components/DataDisplayTable';
 import PopupModal from './components/PopupModal';
+import axios from 'axios';
 
 function App() {
+  const [filteredData, setFilteredData] = useState([]);
 
+  const getData = async () => {
+    try {
+      const response = await axios.get('https://safe-journey-03403.herokuapp.com/formtotable')
+      // setData(response.data);
+      setFilteredData(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div>
@@ -15,8 +26,11 @@ function App() {
         Private Limited
       </h3>
       <div className='container'>
-        <PopupModal />
-        <DataDisplayTable />
+        <PopupModal getData={getData} />
+        <DataDisplayTable
+          getData={getData}
+          filteredData={filteredData}
+          setFilteredData={setFilteredData} />
       </div>
     </div>
   );

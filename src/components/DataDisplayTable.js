@@ -1,23 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
-import axios from 'axios';
 
-const DataDisplayTable = () => {
-    const [data, setData] = useState([]);
+const DataDisplayTable = (props) => {
+    const { getData, filteredData, setFilteredData } = props;
+    // const [data, setData] = useState([]);
     const [search, setSearch] = useState("");
-    const [filteredData, setFilteredData] = useState([]);
 
-    const getData = async () => {
-        try {
-            const response = await axios.get('http://localhost:5000/formtotable')
-            setData(response.data);
-            setFilteredData(response.data);
-        } catch (error) {
-            console.log(error);
-        }
-    };
 
     const columns = [
+        {
+            name: 'id',
+            cell: (row, index) => index + 1,
+            grow: 0,
+        },
         {
             name: 'Name',
             selector: row => row.name,
@@ -37,16 +32,16 @@ const DataDisplayTable = () => {
         },
         {
             name: 'Action',
-            cell: row => <button className='btn btn-danger'>Delete</button>,
+            cell: row => [<button className='btn me-2 btn-danger'>Delete</button>, <button className='btn btn-warning'>Edit</button>]
         }
     ];
 
     useEffect(() => {
         getData();
-    }, [filteredData]);
+    }, []);
 
     useEffect(() => {
-        const result = data.filter(item => {
+        const result = filteredData.filter(item => {
             return item.name.toLowerCase().match(search.toLowerCase());
         });
         setFilteredData(result);
@@ -65,7 +60,7 @@ const DataDisplayTable = () => {
                 selectableRows
                 selectableRowsHighlight
                 highlightOnHover
-                actions={<button className='btn btn-sm btn-primary'>Export Data</button>}
+                // actions={<button className='btn btn-sm btn-primary'>Export Data</button>}
                 subHeader
                 subHeaderComponent={<input
                     type='text'
@@ -75,6 +70,7 @@ const DataDisplayTable = () => {
                     onChange={(e) => setSearch(e.target.value)}
                 />}
             />
+            <button className='btn btn-primary btn-sm'>export</button>
         </div>
     );
 };
