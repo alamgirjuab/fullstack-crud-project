@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import DataTable from 'react-data-table-component';
 import MailComponent from './MailComponent';
 import emailjs from '@emailjs/browser';
+import { Link } from 'react-router-dom';
 
 const DataDisplayTable = (props) => {
     const { getData, filteredData, setFilteredData } = props;
@@ -50,22 +51,6 @@ const DataDisplayTable = (props) => {
             })
     }
 
-    /*  const handleDeleteOrder = id => {
-         const url = `https://safe-journey-03403.herokuapp.com/formtotable/${id}`;
-         fetch(url, {
-             method: 'DELETE'
-         })
-             .then(res => res.json())
-             .then(data => {
-                 if (data.deletedCount) {
-                     alert('deleted successfully')
-                     const remainingUsers = filteredData.filter(service => service._id !== id)
-                     setFilteredData(remainingUsers)
-                 }
-             })
-     } */
-
-
     //---------------------Table Header-----------------------------
 
 
@@ -94,7 +79,8 @@ const DataDisplayTable = (props) => {
         },
         {
             name: 'Action',
-            cell: row => [<button className='btn me-2 btn-danger' onClick={() => handleDelete(row._id)}>Delete</button>, <button className='btn btn-warning'>Edit</button>]
+            cell: row => [<button className='btn me-2 btn-danger' onClick={() => handleDelete(row._id)}>Delete</button>,
+            <Link to='/updatedata'><button className='btn me-2 btn-warning'>Update</button></Link>]
         }
     ];
 
